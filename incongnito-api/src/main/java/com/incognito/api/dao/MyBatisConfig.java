@@ -24,9 +24,7 @@ public class MyBatisConfig {
 
     @Bean
     ConfigurationCustomizer mybatisConfigurationCustomizer() {
-        return configuration -> {
-
-        };
+        return configuration -> configuration.setMapUnderscoreToCamelCase(true);
     }
 
     @Bean

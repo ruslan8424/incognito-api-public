@@ -1,7 +1,7 @@
 package com.incognito.api.dao;
 
+import com.incognito.api.service.model.Conversation;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,14 +13,11 @@ public class ConversationDao {
         this.conversationMapper = conversationMapper;
     }
 
-    public List<Long> getAll() {
-        var res = conversationMapper.getAll(1);
-        return res.stream().map(c -> c.user_id).toList();
+    public List<Conversation> getAll() {
+        return conversationMapper.getAll(1);
     }
 
-    @Transactional
-    public void createTwo() {
-        conversationMapper.create(100, 2);
-        conversationMapper.create(300, 4);
+    public void create(Long id, Long userId) {
+        conversationMapper.create(id, userId);
     }
 }

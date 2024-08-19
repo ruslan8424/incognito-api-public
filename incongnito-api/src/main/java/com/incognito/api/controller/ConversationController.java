@@ -1,6 +1,7 @@
 package com.incognito.api.controller;
 
-import com.incognito.api.dao.ConversationDao;
+import com.incognito.api.service.ConversationService;
+import com.incognito.api.service.model.Conversation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,19 +10,19 @@ import java.util.List;
 
 @RestController
 public class ConversationController {
-    private final ConversationDao conversationDao;
+    private final ConversationService conversationService;
 
-    public ConversationController(ConversationDao conversationDao) {
-        this.conversationDao = conversationDao;
+    public ConversationController(ConversationService conversationService) {
+        this.conversationService = conversationService;
     }
 
     @GetMapping("/conversations")
-    List<Long> all() {
-        return conversationDao.getAll();
+    List<Conversation> all() {
+        return conversationService.getAll();
     }
 
     @PostMapping("/conversations")
     void create() {
-        conversationDao.createTwo();
+        conversationService.createTwo();
     }
 }
