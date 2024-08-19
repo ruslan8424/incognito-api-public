@@ -24,4 +24,8 @@ public class ConversationService {
         conversationDao.create(1L, 2L);
         conversationDao.create(2L, 3L);
     }
+
+    public void create(int number, String message) {
+
+    }
 }

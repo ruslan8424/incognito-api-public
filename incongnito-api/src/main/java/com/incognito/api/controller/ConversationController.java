@@ -4,6 +4,7 @@ import com.incognito.api.service.ConversationService;
 import com.incognito.api.service.model.Conversation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,7 +23,11 @@ public class ConversationController {
     }
 
     @PostMapping("/conversations")
-    void create() {
-        conversationService.createTwo();
+    CreateConversationApiModel create(@RequestBody CreateConversationApiModel input) {
+        conversationService.create(
+                input.number(),
+                input.message()
+        );
+        return new CreateConversationApiModel(input);
     }
 }
