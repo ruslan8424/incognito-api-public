@@ -2,6 +2,7 @@ package com.incognito.api.controller;
 
 import com.incognito.api.dao.ConversationDao;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,5 +18,10 @@ public class ConversationController {
     @GetMapping("/conversations")
     List<Long> all() {
         return conversationDao.getAll();
+    }
+
+    @PostMapping("/conversations")
+    void create() {
+        conversationDao.createTwo();
     }
 }
