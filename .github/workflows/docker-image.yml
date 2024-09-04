@@ -15,8 +15,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Scan code with Sonar Cloud
-      uses: sonarsource/sonarcloud-github-action@v3.0.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: 17
+        distribution: 'zulu' # Alternative distribution options are available. 
+
+    - name: Build and analyze
       env:
+        #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ruslan8424_incognito-api-public        
+  
+    #- name: Scan code with Sonar Cloud
+    # uses: sonarsource/sonarcloud-github-action@v3.0.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+    # env:
+    #  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
