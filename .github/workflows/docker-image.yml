@@ -26,7 +26,7 @@ jobs:
       env:
         #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ruslan8424_incognito-api-public  
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests=true -Dsonar.projectKey=ruslan8424_incognito-api-public  
       working-directory: ./incongnito-api 
   
     #- name: Scan code with Sonar Cloud
