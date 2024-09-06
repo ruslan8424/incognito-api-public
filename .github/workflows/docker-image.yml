@@ -34,7 +34,18 @@ jobs:
 
     - name: Test Image # check if the image was created, for test purposes
       run: docker images 
-  
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@0.20.0
+      with:
+          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+      
+
     #- name: Scan code with Sonar Cloud
     # uses: sonarsource/sonarcloud-github-action@v3.0.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
     # env:
