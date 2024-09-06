@@ -28,6 +28,12 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests=true -Dsonar.projectKey=ruslan8424_incognito-api-public  
       working-directory: ./incongnito-api 
+
+    - name: Build the Docker image
+      run: docker build  -t ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} .     
+
+    - name: Test Image # check if the image was created, for test purposes
+      run: docker image 
   
     #- name: Scan code with Sonar Cloud
     # uses: sonarsource/sonarcloud-github-action@v3.0.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
