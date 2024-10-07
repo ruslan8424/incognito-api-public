@@ -50,13 +50,28 @@ jobs:
 
     - name: Docker Push
       run: docker push  ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
-      
 
 
-    #- name: Scan code with Sonar Cloud
+    # name: Scan code with Sonar Cloud
     # uses: sonarsource/sonarcloud-github-action@v3.0.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
     # env:
-    #  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    #  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+
+    - name: Deploy to EC2 instance 
+      uses: appleboy/ssh-action@main
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script:
+          docker stop incognito-api-public || true
+          docker rm incognito-api-public || true
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
+          docker run -d name incognito-api-public -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
+
+
+
+
 
 
 
