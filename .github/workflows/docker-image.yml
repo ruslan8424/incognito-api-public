@@ -62,7 +62,7 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PRIVATE_KEY }} # used the bastion key!!DJgV- Bastion pub, GlvbgECAw- Bastion private,
+        key: ${{ secrets.EC2_PRIVATE_KEY }} # used the bastion key!!DJgV- Bastion pub, GlvbgECAw- Bastion private,!!
         script:
           docker stop incognito-api-public || true
           docker rm incognito-api-public || true
