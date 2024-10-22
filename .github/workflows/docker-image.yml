@@ -36,7 +36,7 @@ jobs:
       run: docker images 
 
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@0.20.0
+      uses: aquasecurity/trivy-action@master  #0.20.0
       with:
           image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}'
           format: 'table'
