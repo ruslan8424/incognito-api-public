@@ -1,10 +1,10 @@
 name: Docker Deploy CI Incognito
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  #push:
+    #branches: [ "main" ]
+  #pull_request:
+    #branches: [ "main" ]
   workflow_dispatch:  
 
 jobs:
@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      #- name: Checkout code
+        #uses: actions/checkout@v4
     
     #- name: Set up JDK 21
       #uses: actions/setup-java@v4
@@ -28,16 +28,16 @@ jobs:
         #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests=true -Dsonar.projectKey=ruslan8424_incognito-api-public  
         #working-directory: ./incongnito-api 
 
-      - name: Build the Docker image
-        run: docker build  -t ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} . 
+      #- name: Build the Docker image
+        #run: docker build  -t ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} . 
 
 
-      - name: Docker Login 
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} 
+      #- name: Docker Login 
+        #run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} 
       #uses:docker/login-action@v1
 
-      - name: Docker Push
-        run: docker push  ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
+      #- name: Docker Push
+        #run: docker push  ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
 
       #uses: docker/build-push0action@v2
       #with: 
