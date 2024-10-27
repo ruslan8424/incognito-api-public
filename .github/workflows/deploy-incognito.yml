@@ -74,5 +74,5 @@ jobs:
             echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}" &&
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} &&
             echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}" &&
-            docker run -d --name incognito-api-public -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} &&
+            docker run -d --name incognito-api-public -p 80:80 -p 443:443 ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} &&
             echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}"
