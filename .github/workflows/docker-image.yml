@@ -23,12 +23,22 @@ jobs:
         java-version: 21
         distribution: 'zulu' # Alternative distribution options are available. 
 
+
+
     - name: Build and analyze
       env:
         #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests=true -Dsonar.projectKey=ruslan8424_incognito-api-public  
       working-directory: ./incongnito-api 
+
+      
+    # - name: Scan code with Sonar Cloud
+    #   uses: sonarsource/sonarcloud-github-action@master # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+    #   env:
+    #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+
+
 
     - name: Build the Docker image
       run: docker build  -t ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} .     
@@ -53,22 +63,18 @@ jobs:
       run: docker push  ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
 
 
-    - name: Scan code with Sonar Cloud
-      uses: sonarsource/sonarcloud-github-action@master # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
-      env:
-       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
 
-    - name: Deploy to EC2 instance 
-      uses: ruslan8424/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PRIVATE_KEY }} # used the bastion key!!DJgV- Bastion pub, GlvbgECAw- Bastion private,!!
-        script:
-          docker stop incognito-api-public || true
-          docker rm incognito-api-public || true
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
-          docker run -d name incognito-api-public -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
+    # - name: Deploy to EC2 instance 
+    #   uses: ruslan8424/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.EC2_HOST }}
+    #     username: ${{ secrets.EC2_USERNAME }}
+    #     key: ${{ secrets.EC2_PRIVATE_KEY }} # used the bastion key!!DJgV- Bastion pub, GlvbgECAw- Bastion private,!!
+    #     script:
+    #       docker stop incognito-api-public || true
+    #       docker rm incognito-api-public || true
+    #       docker pull ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
+    #       docker run -d name incognito-api-public -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
 
 
 
