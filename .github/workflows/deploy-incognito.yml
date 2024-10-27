@@ -69,8 +69,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }} # used the bastion  private key for GitSecret, and public added to host authorized key!!
           script:
-            #docker stop incognito-api-public || true
-            #docker rm incognito-api-public || true
+            docker stop incognito-api-public &&
+            docker rm incognito-api-public &&
             echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}" &&
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} &&
             echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}" &&
