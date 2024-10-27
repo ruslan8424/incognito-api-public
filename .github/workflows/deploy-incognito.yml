@@ -71,8 +71,8 @@ jobs:
           script:
             #docker stop incognito-api-public || true
             #docker rm incognito-api-public || true
-            echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}"
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
-            echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}"
-            docker run -d --name incognito-api-public -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}
+            echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}" &&
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} &&
+            echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}" &&
+            docker run -d --name incognito-api-public -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }} &&
             echo "${{ secrets.DOCKERHUB_USERNAME }}/incognito-api-public:${{ github.sha }}"
