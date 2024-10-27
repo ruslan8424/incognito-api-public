@@ -1,6 +1,7 @@
 name: Docker Image CI Incognito
 # test from local
 on:
+  # test fron dev
   #push:
     #branches: [ "main" ]
   #pull_request:
